@@ -36,7 +36,7 @@ const deletestudent=(key)=>{
         </h1>
         {getdata && (
           <div>
-            {Object.entries(getdata).map((key,value)=>{
+            {Object.entries(getdata).map(([key,value])=>{
               return(
                 <div key={key} style={{border: '2px solid royalblue', margin:10}}>
                   <ul>
