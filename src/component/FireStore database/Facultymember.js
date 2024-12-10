@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useEffect} from 'react'
 import {app} from '../../firebase'
 import {collection,deleteDoc,doc,getDocs,getFirestore} from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 
 const Facultymember =() => {
-    const navigate=useNavigate()
+    // const navigate=useNavigate()
     const[facdata,setFacdata]=useState([])
     useEffect(() => {
       getdata()
@@ -57,7 +57,11 @@ const Facultymember =() => {
                 </div>
                 <div style={{display:'flex'}}>
                 <button onClick={()=>{daletedata(fac.id)}} style={{marginLeft:'auto',display:'flex',marginRight:10,marginBottom:10}}>Delete Faculty</button>
-                <button onClick={()=>{navigate('/Updatemember',{state:fac})}}  style={{display:'flex',marginRight:10,marginBottom:10}}>Update Faculty</button>
+
+
+
+                {/* i deeply understand this concept lettely and understand what the issue here come in code ok . this is under rewiew */}
+                {/* <button onClick={()=>{navigate('/dashboard/Updatemember',{state:fac})}}  style={{display:'flex',marginRight:10,marginBottom:10}}>Update Faculty</button> */}
 
                 </div>
                 </div>

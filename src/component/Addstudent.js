@@ -28,7 +28,7 @@ const Addstudent = () => {
       studentNumber:number
     })
     .then(res=>{
-      navigate('/Students List')
+      navigate('/dashboard/Students List')
     })
     .catch(err=>{
       console.log(err)

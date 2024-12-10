@@ -53,8 +53,6 @@ const LoginPage = () => {
       } else {
         alert("An error occurred. Please try again.");
       }    })
-    // Here, add logic for Google login (e.g., Firebase Auth)
-    navigate('/signup')
   };
 
   const gotosignup=()=>{

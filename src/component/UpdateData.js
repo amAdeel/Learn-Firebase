@@ -6,12 +6,18 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const UpdateData = () => {
   const navigate=useNavigate()
   const location=useLocation()// ya humay file ki location or baki detail bata hai or dosre component me data bi store karvata hai by this 
+// ==============that bellow code is with our with state values =========================
+  // const[name,setName]=useState(location.state[1].studentName)//this mean go to locatin here found  state[] and by passing 1 mean goes to first index [key,value] first index par value ka object hai waha sy hum values get kar rehy hai 
+  // const[id,setId]=useState(location.state[1].studentid)
+  // const[stuclass,setStuclass]=useState(location.state[1].studentClass)
+  // const[gmail,setGmail]=useState(location.state[1].studentGmail)
+  // const[number,setNumber]=useState(location.state[1].studentNumber)
+  const[name,setName]=useState('') 
+  const[id,setId]=useState('')
+  const[stuclass,setStuclass]=useState('')
+  const[gmail,setGmail]=useState('')
+  const[number,setNumber]=useState('')
 
-  const[name,setName]=useState(location.state[1].studentName)//this mean go to locatin here found  state[] and by passing 1 mean goes to first index [key,value] first index par value ka object hai waha sy hum values get kar rehy hai 
-  const[id,setId]=useState(location.state[1].studentid)
-  const[stuclass,setStuclass]=useState(location.state[1].studentClass)
-  const[gmail,setGmail]=useState(location.state[1].studentGmail)
-  const[number,setNumber]=useState(location.state[1].studentNumber)
 
   console.log(location)
 

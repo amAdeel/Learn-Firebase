@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import {getFirestore,collection,addDoc} from 'firebase/firestore'
 import {app} from '../../firebase'
+import { useNavigate } from 'react-router-dom'
 
 const Addfaculty = () => {
     const[name,setName]=useState('')
     const[id,setId]=useState(null)
     const[stuclass,setStuclass]=useState('')
     const[number,setNumber]=useState(null)
+    const navigate=useNavigate()
 const submithadle=async(e)=>{
     e.preventDefault();
     // add code for adding data in firestore database
@@ -18,6 +20,14 @@ const submithadle=async(e)=>{
         facultyNumber:number
 
     })
+    .then(res=>{
+      navigate('/dashboard/Facultymember')
+    })
+    .catch(err=>{
+      console.log(err)
+    }
+    )
+
     console.log(name,id,stuclass,number,docRef)
     }
 

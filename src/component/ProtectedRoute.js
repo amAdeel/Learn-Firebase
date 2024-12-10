@@ -1,60 +1,67 @@
-// import React, { useEffect, useState } from "react";
-// import { Route, Navigate } from "react-router-dom";  // Use Navigate here instead of Redirect
-// import { getAuth } from "firebase/auth";
-// import { app } from "../firebase";  // Assuming firebase configuration is in this file
+// import { Navigate, Outlet } from 'react-router-dom';
+// import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import { useEffect, useState } from 'react';
+// import { app } from '../firebase'; // Assuming Firebase is initialized here
 
-// const ProtectedRoute = ({ component: Component, ...rest }) => {
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+// const ProtectedRoute = () => {
+//   const auth = getAuth(app);
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     const auth = getAuth(app);
-//     const unsubscribe = auth.onAuthStateChanged(user => {
-//       if (user) {
-//         setIsAuthenticated(true);
-//       } else {
-//         setIsAuthenticated(false);
-//       }
+//     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+//       setUser(currentUser);
+//       setLoading(false);
 //     });
-    
-//     return () => unsubscribe();
-//   }, []);
 
-//   if (isAuthenticated === null) {
-//     // You can show a loading spinner here if you wish
-//     return <div>Loading...</div>;
+//     return () => unsubscribe();
+//   }, [auth]);
+
+//   if (loading) {
+//     return <div>Loading...</div>; // Show loader while user state is being determined
 //   }
 
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) =>
-//         isAuthenticated ? (
-//           <Component {...props} />
-//         ) : (
-//           <Navigate to="/login" />  // Use Navigate here instead of Redirect
-//         )
-//       }
-//     />
-//   );
+//   if (!user) {
+//     return <Navigate to="/login" replace />;
+//   }
+
+//   // Render child routes if user is authenticated
+//   return <Outlet />;
 // };
 
 // export default ProtectedRoute;
+
 import { Navigate} from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
-import { app } from '../firebase';  // Assuming you have initialized Firebase
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard'
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { app } from '../firebase'; // Assuming Firebase is initialized here
 
 const ProtectedRoute = () => {
   const auth = getAuth(app);
-  const user = auth.currentUser; // Check if a user is logged in
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!user) {
-    // If no user is logged in, redirect to login page
-    return <Navigate to="/login" />;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log(currentUser);
+      
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loader while checking user status
   }
 
-  // If user is authenticated, render the child routes
-  return <Dashboard />;
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Dashboard />; // Render child routes if user is authenticated
 };
 
 export default ProtectedRoute;
